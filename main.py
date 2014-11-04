@@ -1,4 +1,6 @@
 import socket
+import dgramconn
+
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -8,8 +10,11 @@ s_port = raw_input("Tell me the port of the server: ")
 server = (s_addr,int(s_port))
 sock.connect(server)
 
-message = raw_input()
-sock.sendall(message)
+dc = dgramconn.DatagramConnection(sock)
 
-data = sock.recv(16)
+
+message = raw_input()
+dc.send(message)
+
+data = dc.recv()
 print data
